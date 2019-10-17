@@ -32,9 +32,9 @@ Rs2 = Rs2 ./image2squared;
 Rs2(isnan(Rs2)) = 0;
 Rs2 = imfilter(Rs2, filter, 'replicate'); 
 
-initial = 5000; % can be changed, as needed.
+initial = 100; % can be changed, as needed.
 ncc = zeros(size(Rs1,1),size(Rs1,2),initial);
-th = 1;
+th = 10;
 for i = 1:size(Rs1,1)
     i
     for j = 1:size(Rs1,2)
