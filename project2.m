@@ -32,15 +32,23 @@ Rs2 = Rs2 ./image2squared;
 Rs2(isnan(Rs2)) = 0;
 Rs2 = imfilter(Rs2, filter, 'replicate'); 
 
-ncc = []; 
+initial = 5000; % can be changed, as needed.
+ncc = zeros(size(Rs1,1),size(Rs1,2),initial);
+th = 1;
 for i = 1:size(Rs1,1)
+    i
     for j = 1:size(Rs1,2)
+        count = 1;
         for k = 1:size(Rs2,1)
             for l = 1:size(Rs2,2)
-                ncc = [ncc; Rs1(i,j)* Rs2(k,l)]; 
-            end 
+                value = Rs1(i,j)* Rs2(k,l);
+                if value >= th
+                    ncc(i,j,count) = Rs1(i,j)* Rs2(k,l); 
+                    count = count + 1;
+                end
+            end
         end 
-    end 
+    end
 end
 
 
