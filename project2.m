@@ -1,19 +1,14 @@
 clear
 clc
 %% Read in images
-first = 285;
-%dir = fullfile('/Users/marissadalonzo/Documents/MATLAB/ComputerVision/Project2/DanaHallWay2');
 image1Orig = imread('DanaHallWay2/DSC_0285.JPG');
 image1Gray = rgb2gray(image1Orig);
 image2Orig = imread('DanaHallWay2/DSC_0286.JPG');
 image2Gray = rgb2gray(image2Orig);
 
-%image1 = rgb2gray(readimage(files,1));
-%image2 = rgb2gray(readimage(files,2));
-
 %% Harris detector
-Rs1 = harrisDetector(image1Gray, 100, 20);
-Rs2 = harrisDetector(image2Gray, 100, 20);
+Rs1 = harrisDetector(image1Gray, 100, 50);
+Rs2 = harrisDetector(image2Gray, 100, 50);
 
 %% NCC
 

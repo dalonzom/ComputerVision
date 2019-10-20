@@ -1,6 +1,7 @@
 imageOrig = imread('DanaHallWay2/DSC_0285.JPG');
 imageGray = rgb2gray(imageOrig);
-Rs = harrisDetector(imageGray, 100, 20);
+figure; 
+Rs = harrisDetector(imageGray, 100, 100);
 image('CData', imageOrig,'XData',[1 512], 'YData', [-1 -340])
 for i = 1:size(Rs,1)
     for j = 1:size(Rs,2)
