@@ -1,9 +1,10 @@
 clear
 clc
 
-RansacTH = 2;
 RccTH = 1;
 RsTH = 200;
+RansacTH = 2;
+ransacRounds = 300;
 
 %% Read in images
 first = 285;
@@ -111,7 +112,6 @@ for count = 1:size(matches,2)
     pairs(totalPairings).val = val;
 end
 
-ransacRounds = 300;
 bestInlierCount = -1;
 bestH = eye(3);
 for num = 1:ransacRounds
