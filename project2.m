@@ -2,7 +2,7 @@ clear
 clc
 
 RccTH = 1;
-RsTH = 200;
+RsTH = 15;
 RansacTH = 2;
 ransacRounds = 300;
 
