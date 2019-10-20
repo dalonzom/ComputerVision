@@ -1,10 +1,10 @@
 clear
 clc
 
-RccTH = 1;
-RsTH = 15;
+RccTH = 0.9;
+RsTH = 50;
 RansacTH = 2;
-ransacRounds = 300;
+ransacRounds = 150;
 
 %% Read in images
 image1Orig = imread('DanaHallWay2/DSC_0285.JPG');
