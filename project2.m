@@ -1,5 +1,10 @@
 clear
 clc
+
+RansacTH = 2;
+RccTH = 1;
+RsTH = 200;
+
 %% Read in images
 first = 285;
 %dir = fullfile('/Users/marissadalonzo/Documents/MATLAB/ComputerVision/Project2/DanaHallWay2');
@@ -36,18 +41,17 @@ image1(isnan(image1)) = 0;
 image2 = image2 ./image2squared;
 image2(isnan(image2)) = 0;
 
-th = 1;
 matches = struct();
 count = 0;
 for i = 4:(size(image1,1)-3)
     i
     for j = 4:(size(image1,2)-3)
-        if Rs1(i,j) >= 100
+        if Rs1(i,j) >= RsTH
             for k = 4:(size(image2,1)-3)
                 for l = 4:(size(image2,2)-3)
-                    if Rs2(k,l) >= 100
+                    if Rs2(k,l) >= RsTH
                         value = sum(sum(image1((i-3):(i+3),(j-3):(j+3)) .* image2((k-3):(k+3),(l-3):(l+3))));
-                        if value >= th
+                        if value >= RccTH
                             count = count + 1;
                             matches(count).row1 = i;
                             matches(count).col1 = j;
@@ -107,7 +111,7 @@ for count = 1:size(matches,2)
     pairs(totalPairings).val = val;
 end
 
-ransacRounds = 1000;
+ransacRounds = 300;
 bestInlierCount = -1;
 bestH = eye(3);
 for num = 1:ransacRounds
@@ -143,7 +147,6 @@ for num = 1:ransacRounds
     inliersCount = 0;
     inliers = struct();
     
-    th = 3;
     for i = 1:size(pairs,2)
         y1 = pairs(i).row1;
         x1 = pairs(i).col1;
@@ -153,7 +156,7 @@ for num = 1:ransacRounds
         p2 = h * p1;
         p2 = p2./p2(3);
         p2 = round(p2);
-        if abs(y2 - p2(2))<th && abs(x2 - p2(1))<th
+        if abs(y2 - p2(2))<RansacTH && abs(x2 - p2(1))<RansacTH
             inliersCount = inliersCount + 1;
             inliers(inliersCount).row1 = pairs(i).row1;
             inliers(inliersCount).col1 = pairs(i).col1;
