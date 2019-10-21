@@ -4,12 +4,12 @@ clc
 RccTH = 0.9;
 RsTH = 50;
 RansacTH = 2;
-ransacRounds = 150;
+ransacRounds = 300;
 
 %% Read in images
-image1Orig = imread('DanaOffice/DSC_0315.JPG');
+image1Orig = imread('DanaHallWay2/DSC_0285.JPG');
 image1Gray = rgb2gray(image1Orig);
-image2Orig = imread('DanaOffice/DSC_0316.JPG');
+image2Orig = imread('DanaHallWay2/DSC_0286.JPG');
 image2Gray = rgb2gray(image2Orig);
 
 %% Harris detector
