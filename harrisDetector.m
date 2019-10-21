@@ -1,4 +1,4 @@
-function [Rs] = harrisDetector(image, nonMaxThreshold, nonMaxRange)
+function [Rs] = harrisDetector(image, nonMaxThreshold)
 
 % Calculate gradient masks
 [Ix,Iy] = imgradientxy(image, 'prewitt');
@@ -28,10 +28,7 @@ for i = 1:size(Ix,1)
 end
 
 %% Nonmax suppression
-
-% X = reshape(1:20,5,4)'
-% C = mat2cell(X, [2 2], [3 2])
-% celldisp(C) 
+ 
 [Imag, Idir] = imgradient(image, 'prewitt');
 Imagcells = mat2cell(Imag, [85 85 85 85], [128 128 128 128]);
 cells = mat2cell(Rs, [85 85 85 85], [128 128 128 128]); 
@@ -42,7 +39,7 @@ for i = 1:4
         vec = zeros(85, 128); 
         vec(index(1:50)) = Imagcells{i,j}(index(1:50));
          for k = 50:-1:1
-            if min(abs(index(1:k-1) - index(k))) < 10  
+            if min(abs(index(1:k-1) - index(k))) < 10 | index(k) < nonMaxThreshold 
                 vec(index(k)) = 0; 
             end 
          end 
@@ -50,74 +47,3 @@ for i = 1:4
     end 
 end 
 Rs = cell2mat(cells); 
-%Calculate magnitude and direction of gradient
-% [Imag, Idir] = imgradient(image, 'prewitt');
-% directions = [-180, -135, -90, -45, 0, 45, 90, 135, 180];
-% for i = 1:size(Rs,1)
-%     for j = 1:size(Rs,2)
-%         % Find closest direction in magnitude of gradient
-%         [diff, index] = min(abs(Rs(i,j) - directions));
-%         direction = directions(index);
-%         for k = 1:nonMaxRange
-%             switch direction
-%                 case -180
-%                     if i-k > 0 && (Rs(i-k,j) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case -135
-%                     if i-k > 0 && j-k > 0 && (Rs(i-k, j-k) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case -90
-%                     if j-k > 0 && (Rs(i, j-k) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case -45
-%                     if i+k <= size(Rs,1) && j-k > 0 && (Rs(i+k, j-k) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case 0
-%                     if  i+k <= size(Rs,1) && (Rs(i+k, j) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case 45
-%                     if  i+k <= size(Rs,1) &&  j+k <= size(Rs,2) && (Rs(i+k, j+k) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case 90
-%                     if  j+k <= size(Rs,2) && (Rs(i, j+k) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case 135
-%                     if i+k <= size(Rs,1) &&  j+k <= size(Rs,2) && (Rs(i+k, j+k) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%                 case 180
-%                     if i-k > 0 && (Rs(i-k, j) > Rs(i,j))
-%                         Rs(i,j) = 0;
-%                         break
-%                     end
-%             end
-%         end
-%     end
-%     
-% end
-% 
-% for i = 1:size(Rs,1)
-%     for j = 1:size(Rs,2)
-%         if Rs(i,j) ~= 0 
-%             Rs(i,j) = Imag(i,j); 
-%         end
-%         if Rs(i,j)  < nonMaxThreshold
-%             Rs(i,j) = 0;
-%         end
-%     end
-% end

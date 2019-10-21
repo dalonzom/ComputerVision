@@ -7,14 +7,14 @@ RansacTH = 2;
 ransacRounds = 150;
 
 %% Read in images
-image1Orig = imread('DanaHallWay2/DSC_0285.JPG');
+image1Orig = imread('DanaOffice/DSC_0315.JPG');
 image1Gray = rgb2gray(image1Orig);
-image2Orig = imread('DanaHallWay2/DSC_0286.JPG');
+image2Orig = imread('DanaOffice/DSC_0316.JPG');
 image2Gray = rgb2gray(image2Orig);
 
 %% Harris detector
-Rs1 = harrisDetector(image1Gray, 100, 50);
-Rs2 = harrisDetector(image2Gray, 100, 50);
+Rs1 = harrisDetector(image1Gray, 100);
+Rs2 = harrisDetector(image2Gray, 100);
 
 %% NCC
 
@@ -189,7 +189,7 @@ image2Ref = imref2d(size(image2Orig));
 
 totalHP = projective2d(totalH');
 [tfImage tfImageRef] = imwarp(image1Orig,totalHP);
-figure(1);
+figure;
 clf;
 imshowpair(image2Orig,image2Ref, tfImage, tfImageRef, 'blend','Scaling','joint')
 %imshowpair(image2Orig, image2Ref, testTF, testRef,'blend','Scaling','joint')
