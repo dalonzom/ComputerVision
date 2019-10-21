@@ -1,5 +1,5 @@
 baseImageEC = imread('DanaOffice/DSC_0309.JPG');
-ecImage = imread('DanaHallWay2/DSC_0286.JPG');
+ecImage = imread('driveway.jpg');
 
 row1 = [1 1 size(ecImage,1) size(ecImage,1)];
 col1 = [1 size(ecImage,2) size(ecImage,2) 1];
@@ -28,8 +28,19 @@ baseImageECRef = imref2d(size(baseImageEC));
 
 totalHP = projective2d(totalH');
 [tfImage tfImageRef] = imwarp(ecImage,totalHP);
-%output = imwarp(baseImageEC, baseImageECRef, tfImage, tfImageRef, 'blend', 'Scaling', 'joint');
-for i = 1:10
-    baseImageEC = imfuse(tfImage, tfImageRef, baseImageEC, baseImageECRef, 'blend');
+startX = round(tfImageRef.XWorldLimits(1));
+endX = round(tfImageRef.XWorldLimits(2));
+startY = round(tfImageRef.YWorldLimits(1));
+endY = round(tfImageRef.YWorldLimits(2));
+for i=(startY+1):endY
+    for j=(startX+1):endX
+        if(tfImage(i-startY,j-startX) ~= 0)
+            baseImageEC(i,j,:) = tfImage(i-startY,j-startX,:);
+        end
+    end
 end
+%output = imwarp(baseImageEC, baseImageECRef, tfImage, tfImageRef, 'blend', 'Scaling', 'joint');
+% for i = 1:1
+%     baseImageEC = imfuse(tfImage, tfImageRef, baseImageEC, baseImageECRef, 'blend');
+% end
 imshow(baseImageEC);
