@@ -4,7 +4,7 @@ clc
 RccTH = 0.9;
 RsTH = 50;
 RansacTH = 2;
-ransacRounds = 150;
+ransacRounds = 300;
 
 %% Read in images
 image1Orig = imread('DanaOffice/DSC_0315.JPG');
