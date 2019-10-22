@@ -1,5 +1,5 @@
 baseImageEC = imread('office.jpg');
-ecImage = imread('office.jpg');
+ecImage = imread('nabeel.png');
 
 for i=1:5
 
