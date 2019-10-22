@@ -25,7 +25,7 @@ imshowpair(image2Orig, image2Ref, image1Shift, image1ShiftRef, 'blend','Scaling'
 hold on
 
 for i = 1:size(pairs,2)
-    %plot([pairs(i).col1, pairs(i).col2], [pairs(i).row1 + shiftNum, pairs(i).row2]);
+    plot([pairs(i).col1, pairs(i).col2], [pairs(i).row1 + shiftNum, pairs(i).row2], 'Linewidth', 2);
 end
 
 figure(35);
@@ -35,5 +35,5 @@ imshowpair(image2Orig, image2Ref, image1Shift, image1ShiftRef, 'blend','Scaling'
 hold on
 
 for i = 1:size(bestInliers,2)
-    plot([bestInliers(i).col1, bestInliers(i).col2], [bestInliers(i).row1 + shiftNum, bestInliers(i).row2]);
+    plot([bestInliers(i).col1, bestInliers(i).col2], [bestInliers(i).row1 + shiftNum, bestInliers(i).row2], 'Linewidth', 2);
 end
